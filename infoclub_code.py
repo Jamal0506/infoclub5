@@ -1,5 +1,6 @@
 import streamlit as st
 
+# 페이지 설정
 st.set_page_config(page_title="암호 방탈출", layout="centered")
 st.title("🎉 축제 암호 방탈출")
 st.markdown("""
@@ -9,17 +10,26 @@ st.markdown("""
 ---
 """)
 
-# 본문 텍스트 크기 키우는 CSS
+# 전체 스타일 조절
 st.markdown("""
 <style>
+/* 본문 텍스트 크기 */
 div[data-testid="stMarkdownContainer"] p,
 div[data-testid="stMarkdownContainer"] li,
 div[data-testid="stMarkdownContainer"] span,
 div[data-testid="stText"] {
-    font-size: 20px !important;
+    font-size: 26px !important;
 }
-.feedback {
+
+/* 입력창 텍스트 크기 */
+div[data-testid="stTextInput"] > div > input {
     font-size: 24px !important;
+    height: 40px !important;
+}
+
+/* 정답/오답 메시지 */
+.feedback {
+    font-size: 28px !important;
     font-weight: bold !important;
     margin-top: 10px !important;
     margin-bottom: 20px !important;
@@ -27,6 +37,7 @@ div[data-testid="stText"] {
 </style>
 """, unsafe_allow_html=True)
 
+# 상태 관리
 if 'stage' not in st.session_state:
     st.session_state.stage = 1
 
