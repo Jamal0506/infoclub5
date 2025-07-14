@@ -10,7 +10,7 @@ st.markdown("""
 ---
 """)
 
-# 전체 스타일 + 폰트 설정
+# 💅 전체 스타일 + 폰트 설정
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -57,13 +57,13 @@ if 'stage' not in st.session_state:
 def clear_inputs():
     for key in ["input1", "input2", "input3"]:
         if key in st.session_state:
-            st.session_state[key] = ""
+            del st.session_state[key]
 
 def next_stage():
     st.session_state.stage += 1
     clear_inputs()
 
-# 1단계
+# 🧩 1단계
 if st.session_state.stage == 1:
     st.header("🧩 첫 번째 암호")
     st.markdown("""
@@ -78,14 +78,15 @@ if st.session_state.stage == 1:
 
     if answer:
         if answer.strip().lower() == "start":
-            st.session_state.input1 = ""
+            if "input1" in st.session_state:
+                del st.session_state["input1"]
             st.markdown('<p class="feedback" style="color:green;">정답입니다! 다음 방으로 이동하세요.</p>', unsafe_allow_html=True)
             if st.button("다음 방으로 이동"):
                 next_stage()
         else:
             st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
-# 2단계
+# 🔐 2단계
 elif st.session_state.stage == 2:
     st.header("🔐 첫 번째 암호")
     st.markdown("""
@@ -101,37 +102,18 @@ elif st.session_state.stage == 2:
 
     if answer:
         if answer.strip().lower() == "enjoy":
-            st.session_state.input2 = ""
+            if "input2" in st.session_state:
+                del st.session_state["input2"]
             st.markdown('<p class="feedback" style="color:green;">정답입니다! 다음 방으로 이동하세요.</p>', unsafe_allow_html=True)
             if st.button("다음 방으로 이동"):
                 next_stage()
         else:
             st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
-# 3단계
+# 🧠 3단계
 elif st.session_state.stage == 3:
     st.header("🧠 두 번째 암호")
     st.markdown("""
 <화면이 또 자동으로 넘겨졌다.>
 
-암호문: `ihvwlYdo`  
-힌트: `+3`
-
-알파벳 표:  
-`Plain: a b c d e f g h i j k l m n o p q r s t u v w x y z`
-
-모든 알파벳은 소문자로 입력하세요.
-""", unsafe_allow_html=True)
-
-    answer = st.text_input("해독된 단어를 입력하세요:", key="input3")
-
-    if answer:
-        if answer.strip().lower() == "festival":
-            st.session_state.input3 = ""
-            st.markdown('<p class="feedback" style="color:green;">🎉 축하합니다! 탈출에 성공했습니다!</p>', unsafe_allow_html=True)
-            st.balloons()
-            if st.button("🏁 처음으로 돌아가기"):
-                st.session_state.stage = 1
-                clear_inputs()
-        else:
-            st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
+암
