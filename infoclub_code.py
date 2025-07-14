@@ -1,6 +1,5 @@
 import streamlit as st
 
-# 페이지 설정
 st.set_page_config(page_title="암호 방탈출", layout="centered")
 st.title("🎉 축제 암호 방탈출")
 st.markdown("""
@@ -10,7 +9,6 @@ st.markdown("""
 ---
 """)
 
-# 세션 상태 초기화
 if 'stage' not in st.session_state:
     st.session_state.stage = 1
 
@@ -18,6 +16,10 @@ def clear_inputs():
     for key in ["input1", "input2", "input3"]:
         if key in st.session_state:
             del st.session_state[key]
+
+def next_stage():
+    st.session_state.stage += 1
+    clear_inputs()
 
 # 1단계
 if st.session_state.stage == 1:
@@ -31,10 +33,8 @@ if st.session_state.stage == 1:
     """)
     answer = st.text_input("노트북 화면에 입력:", key="input1")
     if answer.strip().lower() == "start":
-        st.success("정답입니다! 다음 방으로 이동합니다.")
-        clear_inputs()
-        st.session_state.stage = 2
-        st.experimental_rerun()
+        if st.button("다음 방으로 이동"):
+            next_stage()
 
 # 2단계
 elif st.session_state.stage == 2:
@@ -49,10 +49,8 @@ elif st.session_state.stage == 2:
     """)
     answer = st.text_input("해독된 단어를 입력하세요:", key="input2")
     if answer.strip().lower() == "enjoy":
-        st.success("정답입니다! 다음 방으로 이동합니다.")
-        clear_inputs()
-        st.session_state.stage = 3
-        st.experimental_rerun()
+        if st.button("다음 방으로 이동"):
+            next_stage()
 
 # 3단계
 elif st.session_state.stage == 3:
@@ -74,6 +72,5 @@ elif st.session_state.stage == 3:
         st.success("🎉 축하합니다! 탈출에 성공했습니다!")
         st.balloons()
         if st.button("🏁 처음으로 돌아가기"):
-            clear_inputs()
             st.session_state.stage = 1
-            st.experimental_rerun()
+            clear_inputs()
