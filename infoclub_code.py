@@ -19,7 +19,7 @@ html, body, [class*="css"] {
     font-family: 'Noto Sans KR', sans-serif !important;
 }
 
-/* 일반 본문 텍스트 */
+/* 본문 */
 div[data-testid="stMarkdownContainer"] p,
 div[data-testid="stMarkdownContainer"] li,
 div[data-testid="stMarkdownContainer"] span,
@@ -27,13 +27,13 @@ div[data-testid="stText"] {
     font-size: 22px !important;
 }
 
-/* 입력창 텍스트 */
+/* 입력창 */
 div[data-testid="stTextInput"] > div > input {
     font-size: 22px !important;
     height: 40px !important;
 }
 
-/* 정답/오답 메시지 */
+/* 피드백 */
 .feedback {
     font-size: 26px !important;
     font-weight: bold !important;
@@ -41,7 +41,7 @@ div[data-testid="stTextInput"] > div > input {
     margin-bottom: 20px !important;
 }
 
-/* 초록색 힌트 강조 */
+/* 초록 힌트 */
 .green-hint {
     font-size: 28px !important;
     font-weight: bold !important;
@@ -63,7 +63,7 @@ def next_stage():
     st.session_state.stage += 1
     clear_inputs()
 
-# 🧩 1단계
+# 1단계
 if st.session_state.stage == 1:
     st.header("🧩 첫 번째 암호")
     st.markdown("""
@@ -86,7 +86,7 @@ if st.session_state.stage == 1:
         else:
             st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
-# 🔐 2단계
+# 2단계
 elif st.session_state.stage == 2:
     st.header("🔐 첫 번째 암호")
     st.markdown("""
@@ -110,10 +110,31 @@ elif st.session_state.stage == 2:
         else:
             st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
-# 🧠 3단계
+# 3단계
 elif st.session_state.stage == 3:
     st.header("🧠 두 번째 암호")
     st.markdown("""
 <화면이 또 자동으로 넘겨졌다.>
 
-암
+암호문: `ihvwlYdo`  
+힌트: `+3`
+
+알파벳 표:  
+`Plain: a b c d e f g h i j k l m n o p q r s t u v w x y z`
+
+모든 알파벳은 소문자로 입력하세요.
+""", unsafe_allow_html=True)
+
+    answer = st.text_input("해독된 단어를 입력하세요:", key="input3")
+
+    if answer:
+        if answer.strip().lower() == "festival":
+            if "input3" in st.session_state:
+                del st.session_state["input3"]
+            st.markdown('<p class="feedback" style="color:green;">🎉 축하합니다! 탈출에 성공했습니다!</p>', unsafe_allow_html=True)
+            st.balloons()
+            if st.button("🏁 처음으로 돌아가기"):
+                st.session_state.stage = 1
+                clear_inputs()
+        else:
+            st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
