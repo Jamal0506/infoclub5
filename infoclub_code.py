@@ -13,13 +13,25 @@ if 'stage' not in st.session_state:
     st.session_state.stage = 1
 
 def clear_inputs():
-    for key in ["input1", "input2", "input3"]:
+    for key in ["input1", "input2", "input3", "feedback"]:
         if key in st.session_state:
             del st.session_state[key]
 
 def next_stage():
     st.session_state.stage += 1
     clear_inputs()
+
+# CSS 스타일 (글씨 크기 조절)
+st.markdown("""
+<style>
+    .feedback {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # 1단계
 if st.session_state.stage == 1:
@@ -32,9 +44,14 @@ if st.session_state.stage == 1:
 `준비됐다면 START를 입력하라.`
     """)
     answer = st.text_input("노트북 화면에 입력:", key="input1")
-    if answer.strip().lower() == "start":
-        if st.button("다음 방으로 이동"):
-            next_stage()
+
+    if answer:
+        if answer.strip().lower() == "start":
+            st.markdown('<p class="feedback" style="color:green;">정답입니다! 다음 방으로 이동하세요.</p>', unsafe_allow_html=True)
+            if st.button("다음 방으로 이동"):
+                next_stage()
+        else:
+            st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
 # 2단계
 elif st.session_state.stage == 2:
@@ -48,9 +65,14 @@ elif st.session_state.stage == 2:
 암호문: `@#*!&`
     """)
     answer = st.text_input("해독된 단어를 입력하세요:", key="input2")
-    if answer.strip().lower() == "enjoy":
-        if st.button("다음 방으로 이동"):
-            next_stage()
+
+    if answer:
+        if answer.strip().lower() == "enjoy":
+            st.markdown('<p class="feedback" style="color:green;">정답입니다! 다음 방으로 이동하세요.</p>', unsafe_allow_html=True)
+            if st.button("다음 방으로 이동"):
+                next_stage()
+        else:
+            st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
 
 # 3단계
 elif st.session_state.stage == 3:
@@ -68,9 +90,13 @@ elif st.session_state.stage == 3:
 모든 알파벳은 소문자로 입력하세요.
     """)
     answer = st.text_input("해독된 단어를 입력하세요:", key="input3")
-    if answer.strip().lower() == "festival":
-        st.success("🎉 축하합니다! 탈출에 성공했습니다!")
-        st.balloons()
-        if st.button("🏁 처음으로 돌아가기"):
-            st.session_state.stage = 1
-            clear_inputs()
+
+    if answer:
+        if answer.strip().lower() == "festival":
+            st.markdown('<p class="feedback" style="color:green;">🎉 축하합니다! 탈출에 성공했습니다!</p>', unsafe_allow_html=True)
+            st.balloons()
+            if st.button("🏁 처음으로 돌아가기"):
+                st.session_state.stage = 1
+                clear_inputs()
+        else:
+            st.markdown('<p class="feedback" style="color:red;">오답입니다. 다시 시도하세요.</p>', unsafe_allow_html=True)
