@@ -9,6 +9,24 @@ st.markdown("""
 ---
 """)
 
+# 본문 텍스트 크기 키우는 CSS
+st.markdown("""
+<style>
+div[data-testid="stMarkdownContainer"] p,
+div[data-testid="stMarkdownContainer"] li,
+div[data-testid="stMarkdownContainer"] span,
+div[data-testid="stText"] {
+    font-size: 20px !important;
+}
+.feedback {
+    font-size: 24px !important;
+    font-weight: bold !important;
+    margin-top: 10px !important;
+    margin-bottom: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 if 'stage' not in st.session_state:
     st.session_state.stage = 1
 
@@ -20,18 +38,6 @@ def clear_inputs():
 def next_stage():
     st.session_state.stage += 1
     clear_inputs()
-
-# CSS 스타일 (글씨 크기 조절)
-st.markdown("""
-<style>
-    .feedback {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-</style>
-""", unsafe_allow_html=True)
 
 # 1단계
 if st.session_state.stage == 1:
