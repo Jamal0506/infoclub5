@@ -1,6 +1,5 @@
 import streamlit as st
 
-# 페이지 설정
 st.set_page_config(page_title="암호 방탈출", layout="centered")
 st.title("🎉 축제 암호 방탈출")
 st.markdown("""
@@ -10,19 +9,20 @@ st.markdown("""
 ---
 """)
 
-# 단계 상태 저장
 if 'stage' not in st.session_state:
     st.session_state.stage = 1
 
-# 입력값 초기화 함수
 def clear_inputs():
     for key in ["stage1_input", "stage2_input", "stage3_input"]:
         if key in st.session_state:
             del st.session_state[key]
 
-# ---------------------------
-# 1단계 화면
-# ---------------------------
+def safe_rerun():
+    try:
+        st.experimental_rerun()
+    except Exception as e:
+        st.error(f"앱 재실행 중 오류 발생: {e}")
+
 if st.session_state.stage == 1:
     st.header("🧩 첫 번째 암호")
     st.markdown("""
@@ -37,15 +37,13 @@ if st.session_state.stage == 1:
         st.success("정답입니다! 다음 방으로 이동합니다.")
         clear_inputs()
         st.session_state.stage = 2
-        st.experimental_rerun()
+        safe_rerun()
 
-# ---------------------------
-# 2단계 화면
-# ---------------------------
 elif st.session_state.stage == 2:
     st.header("🔐 두 번째 암호")
     st.markdown("""
 <화면이 자동으로 넘겨졌다.>
+
 
 ```
 @ = e  
@@ -67,11 +65,8 @@ $ = k
         st.success("정답입니다! 마지막 방으로 이동합니다.")
         clear_inputs()
         st.session_state.stage = 3
-        st.experimental_rerun()
+        safe_rerun()
 
-# ---------------------------
-# 3단계 화면
-# ---------------------------
 elif st.session_state.stage == 3:
     st.header("🧠 세 번째 암호")
     st.markdown("""
@@ -81,10 +76,10 @@ elif st.session_state.stage == 3:
 
 힌트: `+3`
 
+
 ```
 알파벳 표:
 Plain:   a b c d e f g h i j k l m n o p q r s t u v w x y z
-Shift+3: d e f g h i j k l m n o p q r s t u v w x y z a b c
 ```
 
 모든 알파벳은 소문자로 입력하세요.
@@ -96,4 +91,5 @@ Shift+3: d e f g h i j k l m n o p q r s t u v w x y z a b c
         if st.button("🏁 처음으로 돌아가기"):
             clear_inputs()
             st.session_state.stage = 1
-            st.experimental_rerun()
+            safe_rerun()
+
