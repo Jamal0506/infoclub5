@@ -20,7 +20,7 @@ def clear_inputs():
 def go_next_stage(new_stage):
     clear_inputs()
     st.session_state.stage = new_stage
-    st.experimental_rerun()
+    #st.experimental_rerun()
 
 if st.session_state.stage == 1:
     st.header("🧩 첫 번째 암호")
