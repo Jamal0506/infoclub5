@@ -117,7 +117,7 @@ elif st.session_state.stage == 3:
 <화면이 또 자동으로 넘겨졌다.>
 
 암호문: `ihvwlYdo`  
-힌트: `+3`
+힌트: `-3`
 
 알파벳 표:  
 `Plain: a b c d e f g h i j k l m n o p q r s t u v w x y z`
