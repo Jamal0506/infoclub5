@@ -116,7 +116,7 @@ elif st.session_state.stage == 3:
     st.markdown("""
 <화면이 또 자동으로 넘겨졌다.>
 
-암호문: `ihvwlYdo`  
+암호문: `ihvwlydo`  
 힌트: `-3`
 
 알파벳 표:  
